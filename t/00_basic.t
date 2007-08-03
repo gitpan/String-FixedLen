@@ -1,6 +1,6 @@
 use strict;
 
-use Test::More tests => 12;
+use Test::More tests => 13;
 
 use String::FixedLen;
 
@@ -19,6 +19,9 @@ is( $str, 'ab', 'prepend to small' );
 
 $str .= 'cdef';
 is( $str, 'abcd', 'append to small' );
+
+$str .= 'g';
+is( $str, 'abcd', 'append to full' );
 
 $str = "hello, world\n";
 is( $str, 'hell', 'big assign' );

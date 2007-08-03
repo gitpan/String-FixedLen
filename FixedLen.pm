@@ -9,7 +9,7 @@ String::FixedLen - Create strings that will never exceed a specific length
 
 =head1 VERSION
 
-This document describes version 0.01 of String::FixedLen, released
+This document describes version 0.02 of String::FixedLen, released
 2007-08-03.
 
 =head1 SYNOPSIS
@@ -37,9 +37,13 @@ None.
 
 =head1 NOTES
 
-Behind the scenes, the scalar may temporarily exceed the size limit (possibly
-causing it to grow considerably), but will reduced immediately after the
-assignment.
+The source scalar that is being assigned to a String::FixedLen
+scalar may be huge:
+
+   my $big = 'b' x 1_000_000;
+   $fixed = $big;
+
+but at no point will the FixedLen string ever exceed its upper limit.
 
 =head1 BUGS
 
@@ -78,7 +82,7 @@ package String::FixedLen;
 use strict;
 
 use vars '$VERSION';
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 sub TIESCALAR {
     my $class = shift;
@@ -89,9 +93,9 @@ sub TIESCALAR {
 sub STORE {
     my $self = shift;
     $self->{s} = length $_[0] > $self->{len}
-		? substr($_[0], 0, $self->{len})
-		: $_[0]
-	;
+        ? substr($_[0], 0, $self->{len})
+        : $_[0]
+    ;
 }
 
 sub FETCH {

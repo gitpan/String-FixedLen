@@ -1,7 +1,7 @@
 --- #YAML:1.0
 name:                String-FixedLen
-version:             0.01
-abstract:            Create a string that will never exceed a specific length
+version:             0.02
+abstract:            Create strings that will never exceed a specific length
 license:             perl
 generated_by:        ExtUtils::MakeMaker version 6.32
 distribution_type:   module
